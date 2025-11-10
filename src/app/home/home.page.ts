@@ -1,11 +1,11 @@
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // ✅ <--- agrega esto
+import { FormsModule } from '@angular/forms';
 import {
   IonContent, IonHeader, IonTitle, IonToolbar, IonButton,
   IonText, IonList, IonItem, IonInput, IonFooter
 } from '@ionic/angular/standalone';
-import { SupabaseService } from '../../core/supabase';
+import { SupabaseService } from '../core/supabase';
 
 @Component({
   standalone: true,
@@ -14,7 +14,7 @@ import { SupabaseService } from '../../core/supabase';
   styleUrls: ['./home.page.scss'],
   imports: [
     CommonModule,
-    FormsModule, // ✅ <--- y aquí lo incluyes
+    FormsModule,
     IonContent, IonHeader, IonTitle, IonToolbar,
     IonButton, IonText, IonList, IonItem, IonInput, IonFooter
   ]
@@ -27,8 +27,6 @@ export class HomePage implements OnInit, OnDestroy {
 
   async ngOnInit() {
     await this.loadMessages();
-
-    // 🔴 Escuchar mensajes nuevos
     this.channelSub = this.supa.listenToMessages((newMsg) => {
       this.messages.push(newMsg);
     });
