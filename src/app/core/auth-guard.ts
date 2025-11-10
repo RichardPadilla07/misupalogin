@@ -4,6 +4,7 @@ import { SupabaseService } from './superbase';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const supa = inject(SupabaseService);
+  
 
   return true;
 };
