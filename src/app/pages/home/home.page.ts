@@ -1,20 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import {
+  IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonText
+} from '@ionic/angular/standalone';
+import { Router } from '@angular/router';
+import { SupabaseService } from '../../core/supabase';
 
 @Component({
+  standalone: true,
   selector: 'app-home',
   templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
-  standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [CommonModule, IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonText]
 })
-export class HomePage implements OnInit {
+export class HomePage {
+  private supa = inject(SupabaseService);
+  private router = inject(Router);
 
-  constructor() { }
-
-  ngOnInit() {
+  async logout() {
+    await this.supa.signOut();
+    this.router.navigateByUrl('/', { replaceUrl: true });
   }
-
 }
